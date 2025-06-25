@@ -1,3 +1,48 @@
+
+document.getElementById("uploadForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const fileInput = document.getElementById("fileInput");
+  const preview = document.getElementById("preview");
+  const downloadArea = document.getElementById("downloadArea");
+  const downloadLink = document.getElementById("downloadLink");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("⚠️ দয়া করে একটি ফাইল নির্বাচন করুন।");
+    return;
+  }
+
+  const fileURL = URL.createObjectURL(file);
+  const fileType = file.type;
+
+  preview.innerHTML = "";
+  downloadLink.href = fileURL;
+  downloadLink.download = file.name;
+  downloadArea.style.display = "block";
+
+  if (fileType.startsWith("image/")) {
+    const img = document.createElement("img");
+    img.src = fileURL;
+    preview.appendChild(img);
+  } else if (fileType.startsWith("video/")) {
+    const video = document.createElement("video");
+    video.src = fileURL;
+    video.controls = true;
+    video.width = 300;
+    preview.appendChild(video);
+  } else if (fileType === "application/pdf") {
+    const iframe = document.createElement("iframe");
+    iframe.src = fileURL;
+    iframe.width = "90%";
+    iframe.height = "400px";
+    preview.appendChild(iframe);
+  } else {
+    preview.innerHTML = "✅ ফাইল সিলেক্ট হয়েছে! প্রিভিউ দিতে পারছি না।";
+  }
+
+  alert("✅ ফাইল আপলোড সফল! নিচ থেকে ডাউনলোড করুন।");
+});
 02:13 PM<!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -121,4 +166,4 @@
 
   <script src="script.js"></script>
 </body>
-</html>document.getElementById("uploadForm").addEventListener("submit", function (e) {<br/>  e.preventDefault();<div></div>  const fileInput = document.getElementById("fileInput");<br/>  const preview = document.getElementById("preview");<br/>  const file = fileInput.files[0];<div></div>  if (!file) {<br/>    alert("ржжржпрж╝рж╛ ржХрж░рзЗ ржПржХржЯрж┐ ржлрж╛ржЗрж▓ ржирж┐рж░рзНржмрж╛ржЪржи ржХрж░рзБржиред");<br/>    return;<br/>  }<div></div>  const fileURL = URL.createObjectURL(file);<br/>  const fileType = file.type;<div></div>  preview.innerHTML = "";<div></div>  if (fileType.startsWith("image/")) {<br/>    const img = document.createElement("img");<br/>    img.src = fileURL;<br/>    preview.appendChild(img);<br/>  } else if (fileType.startsWith("video/")) {<br/>    const video = document.createElement("video");<br/>    video.src = fileURL;<br/>    video.controls = true;<br/>    preview.appendChild(video);<br/>  } else if (fileType === "application/pdf") {<br/>    const link = document.createElement("a");<br/>    link.href = fileURL;<br/>    link.textContent = "ЁЯУД PDF ржжрзЗржЦрзБржи";<br/>    link.target = "_blank";<br/>    preview.appendChild(link);<br/>  } else {<br/>    preview.textContent = "ржлрж╛ржЗрж▓ рж╕ржлрж▓ржнрж╛ржмрзЗ ржирж┐рж░рзНржмрж╛ржЪрж┐ржд рж╣ржпрж╝рзЗржЫрзЗ ржХрж┐ржирзНрждрзБ ржкрзНрж░рж┐ржнрж┐ржЙ ржжрзЗржЦрж╛ржирзЛ ржпрж╛ржмрзЗ ржирж╛ред";<br/>  }
+</html>document.getElementById("uploadForm").addEventListener("submit", function (e) {<br/>  e.preventDefault();<div></div>  const fileInput = document.getElementById("fileInput");<br/>  const preview = document.getElementById("preview");<br/>  const file = fileInput.files[0];<div></div>  if (!file) {<br/>    alert("ржжржпрж╝рж╛ ржХрж░рзЗ ржПржХржЯрж┐ ржлрж╛ржЗрж▓ ржирж┐рж░рзНржмрж╛ржЪржи ржХрж░рзБржиред");<br/>    return;<br/>  }<div></div>  const fileURL = URL.createObjectURL(file);<br/>  const fileType = file.type;<div></div>  preview.innerHTML = "";<div></div>  if (fileType.startsWith("image/")) {<br/>    const img = document.createElement("img");<br/>    
