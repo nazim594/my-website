@@ -1,1 +1,45 @@
 
+document.getElementById("uploadForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const fileInput = document.getElementById("fileInput");
+  const preview = document.getElementById("preview");
+  const downloadArea = document.getElementById("downloadArea");
+  const downloadLink = document.getElementById("downloadLink");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("⚠️ দয়া করে একটি ফাইল নির্বাচন করুন।");
+    return;
+  }
+
+  const fileURL = URL.createObjectURL(file);
+  const fileType = file.type;
+
+  preview.innerHTML = "";
+  downloadLink.href = fileURL;
+  downloadLink.download = file.name;
+  downloadArea.style.display = "block";
+
+  if (fileType.startsWith("image/")) {
+    const img = document.createElement("img");
+    img.src = fileURL;
+    preview.appendChild(img);
+  } else if (fileType.startsWith("video/")) {
+    const video = document.createElement("video");
+    video.src = fileURL;
+    video.controls = true;
+    video.width = 300;
+    preview.appendChild(video);
+  } else if (fileType === "application/pdf") {
+    const iframe = document.createElement("iframe");
+    iframe.src = fileURL;
+    iframe.width = "90%";
+    iframe.height = "400px";
+    preview.appendChild(iframe);
+  } else {
+    preview.innerHTML = "✅ ফাইল সিলেক্ট হয়েছে! প্রিভিউ দিতে পারছি না।";
+  }
+
+  alert("✅ ফাইল আপলোড সফল! নিচ থেকে ডাউনলোড করুন।");
+});
